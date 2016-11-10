@@ -229,7 +229,8 @@ $._farbtastic = function (container, options) {
   fb.touchend = function (event) {
     $(document).unbind('touchmove', fb.touchmove);
     $(document).unbind('touchend', fb.touchend);
-    document.dragging = false;
+    console.log("Touchend called");
+    $._farbtastic.dragging = false;
     event.preventDefault();
     return false;
   }
@@ -536,9 +537,9 @@ $._farbtastic = function (container, options) {
 
   $('canvas.farbtastic-overlay', container).bind("touchstart", function (e) {
     // Capture mouse
-    if (!document.dragging) {
+    if (!$._farbtastic.dragging) {
       $(document).bind('touchmove', fb.touchmove).bind('touchend', fb.touchend);
-      document.dragging = true;
+      $._farbtastic.dragging = true;
     }
     fb.mousedown( fb.touchconvert(e) );
     e.preventDefault();
