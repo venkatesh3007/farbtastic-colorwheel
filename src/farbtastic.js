@@ -230,6 +230,9 @@ $._farbtastic = function (container, options) {
     $(document).unbind('touchmove', fb.touchmove);
     $(document).unbind('touchend', fb.touchend);
     console.log("Touchend called");
+    if ($._farbtastic.touchendhandler) {
+      $._farbtastic.touchendhandler();
+    }
     $._farbtastic.dragging = false;
     event.preventDefault();
     return false;
@@ -523,6 +526,11 @@ $._farbtastic = function (container, options) {
   if (!options.callback) {
     options = { callback: options };
   }
+
+  if (options.touchendhandler) {
+    $._farbtastic.touchendhandler = options.touchendhandler;
+  }
+
   options = $.extend({
     width: 300,
     wheelWidth: (options.width || 300) / 10,
